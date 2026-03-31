@@ -3,135 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D PCB Portfolio</title>
-    
-    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
-    
+    <title>Shlok Desai — PCB Portfolio</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #0f1117;
             color: #e0e0e0;
-            padding: 40px 20px;
+            min-height: 100vh;
         }
 
-        .page-header {
+        .hero {
             text-align: center;
-            margin-bottom: 50px;
+            padding: 80px 20px 50px;
         }
 
-        .page-header h1 {
-            font-size: 2.5em;
+        .hero h1 {
+            font-size: 3em;
             color: #ffffff;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             letter-spacing: -0.5px;
         }
 
-        .page-header p {
+        .hero p {
             color: #888;
-            font-size: 1.1em;
-        }
-
-        .models-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 30px;
-            max-width: 1300px;
+            font-size: 1.15em;
+            max-width: 540px;
             margin: 0 auto;
+            line-height: 1.6;
         }
 
-        .model-card {
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 28px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+
+        .project-card {
             background: #1a1d27;
             border-radius: 16px;
             overflow: hidden;
             border: 1px solid #2a2d3a;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .model-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        .model-card model-viewer {
-            width: 100%;
-            height: 400px;
-            background-color: #12141c;
-            --poster-color: transparent;
-        }
-
-        /* Loading progress bar inside model-viewer */
-        .model-card model-viewer .progress-bar {
+            text-decoration: none;
+            color: inherit;
             display: block;
-            width: 100%;
-            height: 4px;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            background: #2a2d3a;
-            overflow: hidden;
         }
 
-        .model-card model-viewer .progress-bar .update-bar {
-            height: 100%;
-            background: #7c8aff;
-            transition: width 0.3s;
+        .project-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+            border-color: #7c8aff44;
         }
 
-        /* Load button overlay */
-        .model-card model-viewer .load-overlay {
-            position: absolute;
-            inset: 0;
+        .card-preview {
+            height: 200px;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: #12141c;
-            cursor: pointer;
+            font-size: 4em;
+            background: linear-gradient(135deg, #12141c, #1e2030);
         }
 
-        .model-card model-viewer .load-overlay .load-btn {
-            background: #7c8aff;
-            color: #fff;
-            border: none;
-            padding: 12px 28px;
-            border-radius: 8px;
-            font-size: 1em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .model-card model-viewer .load-overlay .load-btn:hover {
-            background: #5f6fd4;
-        }
-
-        .model-card model-viewer .load-overlay .file-size {
-            margin-top: 8px;
-            color: #666;
-            font-size: 0.85em;
-        }
-
-        .model-info {
+        .card-body {
             padding: 24px;
         }
 
-        .model-info h2 {
+        .card-body h2 {
             font-size: 1.4em;
             color: #ffffff;
             margin-bottom: 8px;
         }
 
-        .model-info p {
+        .card-body p {
             color: #888;
             font-size: 0.95em;
             line-height: 1.5;
+            margin-bottom: 14px;
+        }
+
+        .card-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .badge {
@@ -141,124 +99,98 @@
             padding: 4px 12px;
             border-radius: 20px;
             font-size: 0.8em;
-            margin-top: 12px;
             font-weight: 600;
         }
 
-        .hint {
-            text-align: center;
-            margin-top: 40px;
+        .file-size {
             color: #555;
+            font-size: 0.8em;
+        }
+
+        .view-link {
+            color: #7c8aff;
             font-size: 0.9em;
+            font-weight: 600;
+            margin-top: 12px;
+            display: inline-block;
+        }
+
+        .project-card:hover .view-link {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #444;
+            font-size: 0.85em;
+            border-top: 1px solid #1e2030;
+        }
+
+        footer a {
+            color: #7c8aff;
+            text-decoration: none;
         }
 
         @media (max-width: 480px) {
-            .models-grid {
-                grid-template-columns: 1fr;
-            }
-            .model-card model-viewer {
-                height: 300px;
-            }
+            .hero h1 { font-size: 2em; }
+            .projects { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <div class="page-header">
+    <div class="hero">
         <h1>3D PCB Portfolio</h1>
-        <p>Interactive 3D renders of custom PCB designs. Click and drag to rotate, scroll to zoom.</p>
+        <p>Interactive 3D renders of custom PCB designs. Click a project to explore the model.</p>
     </div>
 
-    <div class="models-grid">
+    <div class="projects">
 
-        <div class="model-card">
-            <model-viewer 
-                src="BHM.glb" 
-                alt="3D model of the Battery Health Monitor PCB" 
-                loading="lazy"
-                reveal="manual"
-                auto-rotate 
-                rotation-per-second="30deg"
-                camera-controls 
-                shadow-intensity="1">
-                <div class="load-overlay" slot="poster">
-                    <button class="load-btn" onclick="this.closest('model-viewer').dismissPoster(); this.parentElement.remove();">Load 3D Model</button>
-                    <span class="file-size">~10 MB</span>
-                </div>
-                <div class="progress-bar" slot="progress-bar">
-                    <div class="update-bar" id="bhm-bar"></div>
-                </div>
-            </model-viewer>
-            <div class="model-info">
+        <a class="project-card" href="bhm.html">
+            <div class="card-preview">🔋</div>
+            <div class="card-body">
                 <h2>Battery Health Monitor</h2>
                 <p>Real-time battery health monitoring and diagnostics system.</p>
-                <span class="badge">BHM</span>
+                <div class="card-meta">
+                    <span class="badge">BHM</span>
+                    <span class="file-size">~470 KB</span>
+                </div>
+                <span class="view-link">View 3D Model →</span>
             </div>
-        </div>
+        </a>
 
-        <div class="model-card">
-            <model-viewer 
-                src="BMS.glb" 
-                alt="3D model of the Battery Management System PCB" 
-                loading="lazy"
-                reveal="manual"
-                auto-rotate 
-                rotation-per-second="30deg"
-                camera-controls 
-                shadow-intensity="1">
-                <div class="load-overlay" slot="poster">
-                    <button class="load-btn" onclick="this.closest('model-viewer').dismissPoster(); this.parentElement.remove();">Load 3D Model</button>
-                    <span class="file-size">~50 MB</span>
-                </div>
-                <div class="progress-bar" slot="progress-bar">
-                    <div class="update-bar" id="bms-bar"></div>
-                </div>
-            </model-viewer>
-            <div class="model-info">
+        <a class="project-card" href="bms.html">
+            <div class="card-preview">⚡</div>
+            <div class="card-body">
                 <h2>Battery Management System</h2>
                 <p>Intelligent battery management for charging, balancing, and protection.</p>
-                <span class="badge">BMS</span>
+                <div class="card-meta">
+                    <span class="badge">BMS</span>
+                    <span class="file-size">~1.5 MB</span>
+                </div>
+                <span class="view-link">View 3D Model →</span>
             </div>
-        </div>
+        </a>
 
-        <div class="model-card">
-            <model-viewer 
-                src="IoT.glb" 
-                alt="3D model of the IoT PCB" 
-                loading="lazy"
-                reveal="manual"
-                auto-rotate 
-                rotation-per-second="30deg"
-                camera-controls 
-                shadow-intensity="1">
-                <div class="load-overlay" slot="poster">
-                    <button class="load-btn" onclick="this.closest('model-viewer').dismissPoster(); this.parentElement.remove();">Load 3D Model</button>
-                    <span class="file-size">~22 MB</span>
-                </div>
-                <div class="progress-bar" slot="progress-bar">
-                    <div class="update-bar" id="iot-bar"></div>
-                </div>
-            </model-viewer>
-            <div class="model-info">
+        <a class="project-card" href="iot.html">
+            <div class="card-preview">📡</div>
+            <div class="card-body">
                 <h2>IoT Module</h2>
                 <p>Connected IoT module for wireless data acquisition and communication.</p>
-                <span class="badge">IoT</span>
+                <div class="card-meta">
+                    <span class="badge">IoT</span>
+                    <span class="file-size">~850 KB</span>
+                </div>
+                <span class="view-link">View 3D Model →</span>
             </div>
-        </div>
+        </a>
 
     </div>
 
-    <p class="hint">Drag to rotate &middot; Scroll to zoom &middot; Models auto-rotate</p>
-
-    <script>
-        // Update progress bars as models load
-        document.querySelectorAll('model-viewer').forEach(viewer => {
-            viewer.addEventListener('progress', (e) => {
-                const bar = viewer.querySelector('.update-bar');
-                if (bar) bar.style.width = `${e.detail.totalProgress * 100}%`;
-            });
-        });
-    </script>
+    <footer>
+        <a href="ShlokDesai_Resume.pdf">Resume (PDF)</a>
+    </footer>
 
 </body>
 </html>
