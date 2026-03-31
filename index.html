@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D PCB Portfolio</title>
+    
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f1117;
+            color: #e0e0e0;
+            padding: 40px 20px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .page-header h1 {
+            font-size: 2.5em;
+            color: #ffffff;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .page-header p {
+            color: #888;
+            font-size: 1.1em;
+        }
+
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .model-card {
+            background: #1a1d27;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #2a2d3a;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .model-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .model-card model-viewer {
+            width: 100%;
+            height: 400px;
+            background-color: #12141c;
+            --poster-color: transparent;
+        }
+
+        .model-info {
+            padding: 24px;
+        }
+
+        .model-info h2 {
+            font-size: 1.4em;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .model-info p {
+            color: #888;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #2a2d3a;
+            color: #7c8aff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            margin-top: 12px;
+            font-weight: 600;
+        }
+
+        .hint {
+            text-align: center;
+            margin-top: 40px;
+            color: #555;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 480px) {
+            .models-grid {
+                grid-template-columns: 1fr;
+            }
+            .model-card model-viewer {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-header">
+        <h1>3D PCB Portfolio</h1>
+        <p>Interactive 3D renders of custom PCB designs. Click and drag to rotate, scroll to zoom.</p>
+    </div>
+
+    <div class="models-grid">
+
+        <div class="model-card">
+            <model-viewer 
+                src="BHM.glb" 
+                alt="3D model of the Battery Health Monitor PCB" 
+                auto-rotate 
+                rotation-per-second="30deg"
+                camera-controls 
+                shadow-intensity="1.2">
+            </model-viewer>
+            <div class="model-info">
+                <h2>Battery Health Monitor</h2>
+                <p>Real-time battery health monitoring and diagnostics system.</p>
+                <span class="badge">BHM</span>
+            </div>
+        </div>
+
+        <div class="model-card">
+            <model-viewer 
+                src="BMS.glb" 
+                alt="3D model of the Battery Management System PCB" 
+                auto-rotate 
+                rotation-per-second="30deg"
+                camera-controls 
+                shadow-intensity="1.2">
+            </model-viewer>
+            <div class="model-info">
+                <h2>Battery Management System</h2>
+                <p>Intelligent battery management for charging, balancing, and protection.</p>
+                <span class="badge">BMS</span>
+            </div>
+        </div>
+
+        <div class="model-card">
+            <model-viewer 
+                src="IoT.glb" 
+                alt="3D model of the IoT PCB" 
+                auto-rotate 
+                rotation-per-second="30deg"
+                camera-controls 
+                shadow-intensity="1.2">
+            </model-viewer>
+            <div class="model-info">
+                <h2>IoT Module</h2>
+                <p>Connected IoT module for wireless data acquisition and communication.</p>
+                <span class="badge">IoT</span>
+            </div>
+        </div>
+
+    </div>
+
+    <p class="hint">Drag to rotate &middot; Scroll to zoom &middot; Models auto-rotate</p>
+
+</body>
+</html>
