@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IoT Module — 3D View</title>
+    <title>Automotive IoT Telemetry — Shlok Desai</title>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -11,9 +11,6 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #0f1117;
             color: #e0e0e0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
         }
         nav {
             display: flex;
@@ -29,10 +26,7 @@
             font-weight: 600;
         }
         nav a:hover { text-decoration: underline; }
-        nav h1 {
-            font-size: 1.2em;
-            color: #fff;
-        }
+        nav h1 { font-size: 1.2em; color: #fff; }
         .badge {
             background: #2a2d3a;
             color: #7c8aff;
@@ -42,37 +36,116 @@
             font-weight: 600;
         }
         .viewer-wrap {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
+            height: 60vh;
+            position: relative;
         }
         model-viewer {
-            flex: 1;
             width: 100%;
-            min-height: 0;
+            height: 100%;
             background-color: #12141c;
         }
-        .info-bar {
-            padding: 20px 24px;
-            border-top: 1px solid #1e2030;
+        .hint {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #555;
+            font-size: 0.8em;
+            background: rgba(15,17,23,0.8);
+            padding: 4px 14px;
+            border-radius: 20px;
         }
-        .info-bar p {
+        .details {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 24px 60px;
+        }
+        .details h2 {
+            font-size: 1.6em;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .details .subtitle {
             color: #888;
+            font-size: 1em;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+        .section-title {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #7c8aff;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+        .highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-bottom: 36px;
+        }
+        .highlight-card {
+            background: #161822;
+            border: 1px solid #1e2030;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .highlight-card h3 {
             font-size: 0.95em;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+        .highlight-card p {
+            color: #888;
+            font-size: 0.88em;
             line-height: 1.5;
         }
-        .hint {
-            color: #555;
-            font-size: 0.85em;
-            margin-top: 8px;
+        .stat-row {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 36px;
+            flex-wrap: wrap;
+        }
+        .stat {
+            background: #161822;
+            border: 1px solid #1e2030;
+            border-radius: 10px;
+            padding: 20px 28px;
+            text-align: center;
+            flex: 1;
+            min-width: 140px;
+        }
+        .stat .num {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #7c8aff;
+        }
+        .stat .label {
+            color: #888;
+            font-size: 0.82em;
+            margin-top: 4px;
+        }
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .tech-tags span {
+            background: #2a2d3a;
+            color: #c0c6ff;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.82em;
+            font-weight: 500;
         }
     </style>
 </head>
 <body>
     <nav>
         <a href="index.html">← Back</a>
-        <h1>IoT Module</h1>
-        <span class="badge">IoT</span>
+        <h1>Automotive IoT Telemetry</h1>
+        <span class="badge">PCB</span>
     </nav>
     <div class="viewer-wrap">
         <model-viewer
@@ -83,10 +156,58 @@
             camera-controls
             shadow-intensity="1">
         </model-viewer>
+        <span class="hint">Drag to rotate · Scroll to zoom</span>
     </div>
-    <div class="info-bar">
-        <p>Connected IoT module for wireless data acquisition and communication.</p>
-        <p class="hint">Drag to rotate · Scroll to zoom · Model auto-rotates</p>
+    <div class="details">
+        <h2>Automotive IoT Telemetry Module</h2>
+        <p class="subtitle">A commercial automotive IoT tracking module taken from schematic design through to at-scale fleet deployment. The board combines cellular connectivity, accelerometer-based motion detection, and aggressive power management to deliver reliable vehicle telemetry across thousands of active units.</p>
+
+        <p class="section-title">By the Numbers</p>
+        <div class="stat-row">
+            <div class="stat">
+                <div class="num">2,000+</div>
+                <div class="label">Active devices deployed</div>
+            </div>
+            <div class="stat">
+                <div class="num">74%</div>
+                <div class="label">Power consumption reduction</div>
+            </div>
+            <div class="stat">
+                <div class="num">98%</div>
+                <div class="label">Motion detection accuracy</div>
+            </div>
+        </div>
+
+        <p class="section-title">Key Highlights</p>
+        <div class="highlights">
+            <div class="highlight-card">
+                <h3>Fleet-Scale Cellular Optimization</h3>
+                <p>Scaled to 2,000+ active devices by optimizing cellular packet sizes, reducing bandwidth overhead while maintaining reliable data uplinks.</p>
+            </div>
+            <div class="highlight-card">
+                <h3>Hardware-Interrupt Wake Triggers</h3>
+                <p>Deployed hardware-interrupt based wake triggers that cut power consumption by 74%, enabling long-duration battery-powered fleet tracking.</p>
+            </div>
+            <div class="highlight-card">
+                <h3>Vibration Algorithm</h3>
+                <p>Engineered a time-series vibration algorithm to filter raw accelerometer noise, detecting vehicle movement with 98% accuracy.</p>
+            </div>
+            <div class="highlight-card">
+                <h3>Full Product Lifecycle</h3>
+                <p>Took the hardware from initial schematic design and PCB layout through prototype validation and into at-scale production deployment.</p>
+            </div>
+        </div>
+
+        <p class="section-title">Technologies</p>
+        <div class="tech-tags">
+            <span>Cellular (LTE-M)</span>
+            <span>Accelerometer</span>
+            <span>Embedded C</span>
+            <span>Hardware Interrupts</span>
+            <span>Altium Designer</span>
+            <span>Time-Series DSP</span>
+            <span>Low-Power Design</span>
+        </div>
     </div>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Battery Management System — 3D View</title>
+    <title>Battery Management System — Shlok Desai</title>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -11,9 +11,6 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #0f1117;
             color: #e0e0e0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
         }
         nav {
             display: flex;
@@ -29,10 +26,7 @@
             font-weight: 600;
         }
         nav a:hover { text-decoration: underline; }
-        nav h1 {
-            font-size: 1.2em;
-            color: #fff;
-        }
+        nav h1 { font-size: 1.2em; color: #fff; }
         .badge {
             background: #2a2d3a;
             color: #7c8aff;
@@ -42,29 +36,83 @@
             font-weight: 600;
         }
         .viewer-wrap {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
+            height: 60vh;
+            position: relative;
         }
         model-viewer {
-            flex: 1;
             width: 100%;
-            min-height: 0;
+            height: 100%;
             background-color: #12141c;
         }
-        .info-bar {
-            padding: 20px 24px;
-            border-top: 1px solid #1e2030;
+        .hint {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #555;
+            font-size: 0.8em;
+            background: rgba(15,17,23,0.8);
+            padding: 4px 14px;
+            border-radius: 20px;
         }
-        .info-bar p {
+        .details {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 24px 60px;
+        }
+        .details h2 {
+            font-size: 1.6em;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .details .subtitle {
             color: #888;
+            font-size: 1em;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+        .section-title {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #7c8aff;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+        .highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-bottom: 36px;
+        }
+        .highlight-card {
+            background: #161822;
+            border: 1px solid #1e2030;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .highlight-card h3 {
             font-size: 0.95em;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+        .highlight-card p {
+            color: #888;
+            font-size: 0.88em;
             line-height: 1.5;
         }
-        .hint {
-            color: #555;
-            font-size: 0.85em;
-            margin-top: 8px;
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .tech-tags span {
+            background: #2a2d3a;
+            color: #c0c6ff;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.82em;
+            font-weight: 500;
         }
     </style>
 </head>
@@ -72,7 +120,7 @@
     <nav>
         <a href="index.html">← Back</a>
         <h1>Battery Management System</h1>
-        <span class="badge">BMS</span>
+        <span class="badge">PCB</span>
     </nav>
     <div class="viewer-wrap">
         <model-viewer
@@ -83,10 +131,42 @@
             camera-controls
             shadow-intensity="1">
         </model-viewer>
+        <span class="hint">Drag to rotate · Scroll to zoom</span>
     </div>
-    <div class="info-bar">
-        <p>Intelligent battery management for charging, balancing, and protection.</p>
-        <p class="hint">Drag to rotate · Scroll to zoom · Model auto-rotates</p>
+    <div class="details">
+        <h2>310V Battery Management System</h2>
+        <p class="subtitle">A commercial-grade, high-voltage Battery Management System migrated to a Lockstep ARM Cortex-M7 microcontroller. This board handles cell balancing, charging, and protection for a 310V automotive battery pack, achieving ISO 26262 functional safety compliance for deployment in production vehicles.</p>
+
+        <p class="section-title">Key Highlights</p>
+        <div class="highlights">
+            <div class="highlight-card">
+                <h3>Lockstep ARM Cortex-M7</h3>
+                <p>Migrated the full BMS firmware to a lockstep dual-core ARM Cortex-M7, enabling hardware-level fault detection for safety-critical operation.</p>
+            </div>
+            <div class="highlight-card">
+                <h3>ISO 26262 Compliance</h3>
+                <p>Achieved automotive functional safety certification, meeting rigorous hardware and software integrity requirements for high-voltage systems.</p>
+            </div>
+            <div class="highlight-card">
+                <h3>GDB Debugging Pipeline</h3>
+                <p>Utilized GDB-based debugging workflows for low-level firmware bring-up and validation of critical safety paths on the Cortex-M7.</p>
+            </div>
+            <div class="highlight-card">
+                <h3>310V High-Voltage Design</h3>
+                <p>Managed cell balancing, overcurrent protection, and thermal monitoring for a 310V automotive battery pack across the full operating envelope.</p>
+            </div>
+        </div>
+
+        <p class="section-title">Technologies</p>
+        <div class="tech-tags">
+            <span>ARM Cortex-M7</span>
+            <span>Lockstep Architecture</span>
+            <span>ISO 26262</span>
+            <span>GDB</span>
+            <span>Embedded C</span>
+            <span>Altium Designer</span>
+            <span>High-Voltage PCB</span>
+        </div>
     </div>
 </body>
 </html>

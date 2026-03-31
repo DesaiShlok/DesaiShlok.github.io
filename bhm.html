@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Battery Health Monitor — 3D View</title>
+    <title>Battery Health Monitor — Shlok Desai</title>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -11,9 +11,6 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #0f1117;
             color: #e0e0e0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
         }
         nav {
             display: flex;
@@ -29,10 +26,7 @@
             font-weight: 600;
         }
         nav a:hover { text-decoration: underline; }
-        nav h1 {
-            font-size: 1.2em;
-            color: #fff;
-        }
+        nav h1 { font-size: 1.2em; color: #fff; }
         .badge {
             background: #2a2d3a;
             color: #7c8aff;
@@ -42,29 +36,83 @@
             font-weight: 600;
         }
         .viewer-wrap {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
+            height: 60vh;
+            position: relative;
         }
         model-viewer {
-            flex: 1;
             width: 100%;
-            min-height: 0;
+            height: 100%;
             background-color: #12141c;
         }
-        .info-bar {
-            padding: 20px 24px;
-            border-top: 1px solid #1e2030;
+        .hint {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #555;
+            font-size: 0.8em;
+            background: rgba(15,17,23,0.8);
+            padding: 4px 14px;
+            border-radius: 20px;
         }
-        .info-bar p {
+        .details {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 24px 60px;
+        }
+        .details h2 {
+            font-size: 1.6em;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .details .subtitle {
             color: #888;
+            font-size: 1em;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+        .section-title {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #7c8aff;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+        .highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-bottom: 36px;
+        }
+        .highlight-card {
+            background: #161822;
+            border: 1px solid #1e2030;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .highlight-card h3 {
             font-size: 0.95em;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+        .highlight-card p {
+            color: #888;
+            font-size: 0.88em;
             line-height: 1.5;
         }
-        .hint {
-            color: #555;
-            font-size: 0.85em;
-            margin-top: 8px;
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .tech-tags span {
+            background: #2a2d3a;
+            color: #c0c6ff;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.82em;
+            font-weight: 500;
         }
     </style>
 </head>
@@ -72,7 +120,7 @@
     <nav>
         <a href="index.html">← Back</a>
         <h1>Battery Health Monitor</h1>
-        <span class="badge">BHM</span>
+        <span class="badge">PCB</span>
     </nav>
     <div class="viewer-wrap">
         <model-viewer
@@ -83,10 +131,41 @@
             camera-controls
             shadow-intensity="1">
         </model-viewer>
+        <span class="hint">Drag to rotate · Scroll to zoom</span>
     </div>
-    <div class="info-bar">
-        <p>Real-time battery health monitoring and diagnostics system.</p>
-        <p class="hint">Drag to rotate · Scroll to zoom · Model auto-rotates</p>
+    <div class="details">
+        <h2>Battery Health Monitor</h2>
+        <p class="subtitle">A custom sensor node designed to provide real-time battery health diagnostics in the field. Part of a broader effort to translate strict electrical requirements into physical Altium PCB schematics, this board was fabricated and deployed as one of 70 custom units for continuous telemetry monitoring.</p>
+
+        <p class="section-title">Key Highlights</p>
+        <div class="highlights">
+            <div class="highlight-card">
+                <h3>Custom Altium Schematic</h3>
+                <p>Translated complex electrical and sensor requirements into a production-ready Altium PCB layout optimized for compact field deployment.</p>
+            </div>
+            <div class="highlight-card">
+                <h3>Ultra-Low Power Firmware</h3>
+                <p>Bare-metal firmware utilizing deep-sleep states to achieve multi-month runtime on a single battery charge for continuous monitoring.</p>
+            </div>
+            <div class="highlight-card">
+                <h3>70 Units Fabricated</h3>
+                <p>Scaled from prototype to a production batch of 70 sensor nodes, each validated for reliable field performance.</p>
+            </div>
+            <div class="highlight-card">
+                <h3>Real-Time RF Telemetry</h3>
+                <p>Sub-1GHz RF communication for low-power, long-range data transmission of battery health metrics back to a base station.</p>
+            </div>
+        </div>
+
+        <p class="section-title">Technologies</p>
+        <div class="tech-tags">
+            <span>Altium Designer</span>
+            <span>Embedded C</span>
+            <span>Sub-1GHz RF</span>
+            <span>Bare-Metal Firmware</span>
+            <span>Deep-Sleep Power Mgmt</span>
+            <span>PCB Fabrication</span>
+        </div>
     </div>
 </body>
 </html>
