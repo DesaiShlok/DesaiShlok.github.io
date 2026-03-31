@@ -66,6 +66,58 @@
             --poster-color: transparent;
         }
 
+        /* Loading progress bar inside model-viewer */
+        .model-card model-viewer .progress-bar {
+            display: block;
+            width: 100%;
+            height: 4px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background: #2a2d3a;
+            overflow: hidden;
+        }
+
+        .model-card model-viewer .progress-bar .update-bar {
+            height: 100%;
+            background: #7c8aff;
+            transition: width 0.3s;
+        }
+
+        /* Load button overlay */
+        .model-card model-viewer .load-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #12141c;
+            cursor: pointer;
+        }
+
+        .model-card model-viewer .load-overlay .load-btn {
+            background: #7c8aff;
+            color: #fff;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .model-card model-viewer .load-overlay .load-btn:hover {
+            background: #5f6fd4;
+        }
+
+        .model-card model-viewer .load-overlay .file-size {
+            margin-top: 8px;
+            color: #666;
+            font-size: 0.85em;
+        }
+
         .model-info {
             padding: 24px;
         }
@@ -123,10 +175,19 @@
             <model-viewer 
                 src="BHM.glb" 
                 alt="3D model of the Battery Health Monitor PCB" 
+                loading="lazy"
+                reveal="manual"
                 auto-rotate 
                 rotation-per-second="30deg"
                 camera-controls 
-                shadow-intensity="1.2">
+                shadow-intensity="1">
+                <div class="load-overlay" slot="poster">
+                    <button class="load-btn" onclick="this.closest('model-viewer').dismissPoster(); this.parentElement.remove();">Load 3D Model</button>
+                    <span class="file-size">~10 MB</span>
+                </div>
+                <div class="progress-bar" slot="progress-bar">
+                    <div class="update-bar" id="bhm-bar"></div>
+                </div>
             </model-viewer>
             <div class="model-info">
                 <h2>Battery Health Monitor</h2>
@@ -139,10 +200,19 @@
             <model-viewer 
                 src="BMS.glb" 
                 alt="3D model of the Battery Management System PCB" 
+                loading="lazy"
+                reveal="manual"
                 auto-rotate 
                 rotation-per-second="30deg"
                 camera-controls 
-                shadow-intensity="1.2">
+                shadow-intensity="1">
+                <div class="load-overlay" slot="poster">
+                    <button class="load-btn" onclick="this.closest('model-viewer').dismissPoster(); this.parentElement.remove();">Load 3D Model</button>
+                    <span class="file-size">~50 MB</span>
+                </div>
+                <div class="progress-bar" slot="progress-bar">
+                    <div class="update-bar" id="bms-bar"></div>
+                </div>
             </model-viewer>
             <div class="model-info">
                 <h2>Battery Management System</h2>
@@ -155,10 +225,19 @@
             <model-viewer 
                 src="IoT.glb" 
                 alt="3D model of the IoT PCB" 
+                loading="lazy"
+                reveal="manual"
                 auto-rotate 
                 rotation-per-second="30deg"
                 camera-controls 
-                shadow-intensity="1.2">
+                shadow-intensity="1">
+                <div class="load-overlay" slot="poster">
+                    <button class="load-btn" onclick="this.closest('model-viewer').dismissPoster(); this.parentElement.remove();">Load 3D Model</button>
+                    <span class="file-size">~22 MB</span>
+                </div>
+                <div class="progress-bar" slot="progress-bar">
+                    <div class="update-bar" id="iot-bar"></div>
+                </div>
             </model-viewer>
             <div class="model-info">
                 <h2>IoT Module</h2>
@@ -170,6 +249,16 @@
     </div>
 
     <p class="hint">Drag to rotate &middot; Scroll to zoom &middot; Models auto-rotate</p>
+
+    <script>
+        // Update progress bars as models load
+        document.querySelectorAll('model-viewer').forEach(viewer => {
+            viewer.addEventListener('progress', (e) => {
+                const bar = viewer.querySelector('.update-bar');
+                if (bar) bar.style.width = `${e.detail.totalProgress * 100}%`;
+            });
+        });
+    </script>
 
 </body>
 </html>
