@@ -318,10 +318,6 @@
                 The component I find most interesting on this board is the <strong>MEMS accelerometer</strong> (a low-power 3-axis device in a compact LGA package). While it's a small, inexpensive part, it turned out to be the linchpin of the entire power management and telemetry strategy.
             </p>
 
-            <div class="callout">
-                <p><strong>Operating Principle:</strong> A MEMS accelerometer works by suspending a tiny proof mass on micromachined silicon spring structures. When the device experiences acceleration, the proof mass displaces relative to fixed electrodes, changing the differential capacitance between interleaved comb-finger structures. This differential capacitance is measured by an internal charge amplifier and digitized through a sigma-delta ADC, producing a digital output proportional to acceleration along each axis. The key advantage of MEMS: the entire mechanical sensing element, signal conditioning, and digital interface are monolithically integrated into a single die.</p>
-            </div>
-
             <p>
                 What makes this component particularly interesting in the context of this system is <strong>how its interrupt output pin fundamentally shaped the board's architecture</strong>. Rather than polling the sensor or running a periodic timer wake-up, I wired the accelerometer's programmable interrupt line directly to the MCU's external interrupt pin. The accelerometer itself runs in a nano-power "motion detection" mode (consuming only ~6 µA), continuously monitoring its own axes against a software-configurable threshold — while the main MCU is in deep sleep drawing near-zero current.
             </p>
@@ -330,14 +326,14 @@
                 When the proof mass displacement exceeds the threshold (i.e., the vehicle starts moving), the accelerometer asserts the interrupt line, waking the MCU from deep sleep. The MCU then powers up the cellular modem, acquires a GNSS fix, and begins telemetry transmission. When motion ceases, the system returns to deep sleep. This hardware-interrupt-driven architecture is what delivered the <strong>74% reduction in power consumption</strong> — the system only draws significant current when it actually needs to transmit data.
             </p>
 
-            <p>
-                On top of this, I engineered a <strong>time-series filtering algorithm</strong> on the raw accelerometer data to distinguish genuine vehicle movement from false triggers (vibration from nearby traffic, wind, etc.). The algorithm applies a sliding-window RMS filter with adaptive thresholding, running entirely on the MCU with minimal memory overhead. This brought field accuracy to <strong>~98%</strong>, which was critical because every false wake-up meant wasted battery and unnecessary cellular data costs across 2,000+ deployed units.
-            </p>
+            <div class="callout">
+                <p>On top of this, I engineered an <strong>FFT-based motion detection algorithm</strong> that turned a quirk of Indian roads into a feature. Early field tests revealed that India's rough road surfaces produce a distinctive, broadband vibration signature when a vehicle is moving. I ran an FFT on windowed accelerometer samples directly on the MCU and compared the frequency-domain energy distribution against a stationary baseline. A moving vehicle on Indian roads lights up a wide band of frequencies, while a parked vehicle — even near traffic — shows only narrow, low-energy spikes. By thresholding on this spectral spread, the system reliably distinguished real movement from environmental noise, achieving <strong>~98% field accuracy</strong>. This was critical because every false wake-up meant wasted battery and unnecessary cellular data costs across 2,000+ deployed units.</p>
+            </div>
 
             <p class="tech-tags">
                 <span>MEMS Accelerometer</span>
                 <span>Hardware Interrupts</span>
-                <span>Sigma-Delta ADC</span>
+                <span>FFT Motion Detection</span>
                 <span>Deep Sleep</span>
                 <span>Time-Series Filtering</span>
             </p>
