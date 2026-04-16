@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Battery Health Monitor — Shlok Desai</title>
-    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+    <title>Songbird RF Tracking — Shlok Desai</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -38,22 +37,21 @@
         .viewer-wrap {
             height: 60vh;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #12141c;
         }
-        model-viewer {
-            width: 100%;
-            height: 100%;
-            background-color: #12141c;
-        }
-        .hint {
-            position: absolute;
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
+        .placeholder {
+            text-align: center;
             color: #555;
-            font-size: 0.8em;
-            background: rgba(15,17,23,0.8);
-            padding: 4px 14px;
-            border-radius: 20px;
+        }
+        .placeholder .icon {
+            font-size: 3em;
+            margin-bottom: 12px;
+        }
+        .placeholder p {
+            font-size: 0.95em;
         }
         .details {
             max-width: 900px;
@@ -119,41 +117,36 @@
 <body>
     <nav>
         <a href="index.html">← Back</a>
-        <h1>Battery Health Monitor</h1>
-        <span class="badge">PCB</span>
+        <h1>Songbird Nocturnal Activity Detection</h1>
+        <span class="badge">Research</span>
     </nav>
     <div class="viewer-wrap">
-        <model-viewer
-            src="BHM.glb"
-            alt="3D model of the Battery Health Monitor PCB"
-            auto-rotate
-            rotation-per-second="30deg"
-            camera-controls
-            shadow-intensity="1">
-        </model-viewer>
-        <span class="hint">Drag to rotate · Scroll to zoom</span>
+        <div class="placeholder">
+            <div class="icon">📦</div>
+            <p>3D model yet to be uploaded</p>
+        </div>
     </div>
     <div class="details">
-        <h2>Battery Health Monitor</h2>
-        <p class="subtitle">A custom PCB designed to monitor the health of an 8S lithium-ion battery pack. The board tracks State of Charge (SoC) across all cells and connects to the internet via MQTT to stream real-time telemetry data for remote battery pack monitoring and diagnostics.</p>
+        <h2>Songbird Nocturnal Activity Detection</h2>
+        <p class="subtitle">A sub-1GHz RF tracking system for behavior analysis of songbirds, developed as a Graduate Research Assistant at Columbia University's Internet Real-Time Lab in collaboration with Prof. Henning Schulzrinne. The project involves designing and deploying 70 custom RF sensor nodes for continuous, multi-month real-time telemetry in outdoor environments.</p>
 
         <p class="section-title">Key Highlights</p>
         <div class="highlights">
             <div class="highlight-card">
-                <h3>8S Battery Pack Monitoring</h3>
-                <p>Monitors individual cell voltages and pack-level State of Charge for an 8-series lithium-ion battery configuration.</p>
+                <h3>Custom Altium PCB Design</h3>
+                <p>Translated complex electrical and sensor requirements into a production-ready Altium PCB layout optimized for compact outdoor field deployment.</p>
             </div>
             <div class="highlight-card">
-                <h3>MQTT Telemetry</h3>
-                <p>Publishes real-time SoC, voltage, and health data over MQTT, enabling cloud-based dashboards and remote monitoring.</p>
+                <h3>Ultra-Low Power Firmware</h3>
+                <p>Bare-metal firmware utilizing deep-sleep states to achieve multi-month runtime on a single battery charge for continuous monitoring in the field.</p>
             </div>
             <div class="highlight-card">
-                <h3>Custom Altium PCB</h3>
-                <p>Designed the full schematic and PCB layout in Altium Designer, optimized for the high-voltage sensing and compact form factor.</p>
+                <h3>70 Units Fabricated</h3>
+                <p>Designed PCBs and fabricated 70 sub-1GHz RF nodes, each validated for reliable performance in outdoor environments.</p>
             </div>
             <div class="highlight-card">
-                <h3>Internet-Connected</h3>
-                <p>Onboard connectivity enables over-the-air data transmission, removing the need for local wired readouts of battery status.</p>
+                <h3>Real-Time RF Telemetry</h3>
+                <p>Sub-1GHz RF communication for low-power, long-range data transmission of bird activity metrics back to a base station.</p>
             </div>
         </div>
 
@@ -161,10 +154,10 @@
         <div class="tech-tags">
             <span>Altium Designer</span>
             <span>Embedded C</span>
-            <span>MQTT</span>
-            <span>SoC Estimation</span>
-            <span>8S Li-Ion Pack</span>
-            <span>PCB Design</span>
+            <span>Sub-1GHz RF</span>
+            <span>Bare-Metal Firmware</span>
+            <span>Deep-Sleep Power Mgmt</span>
+            <span>PCB Fabrication</span>
         </div>
     </div>
 </body>
