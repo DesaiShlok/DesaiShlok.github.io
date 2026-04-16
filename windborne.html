@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WindBorne Systems — Engineering Screen — Shlok Desai</title>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f1117;
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 24px;
+            border-bottom: 1px solid #1e2030;
+        }
+        nav a {
+            color: #7c8aff;
+            text-decoration: none;
+            font-size: 0.95em;
+            font-weight: 600;
+        }
+        nav a:hover { text-decoration: underline; }
+        nav h1 { font-size: 1.2em; color: #fff; }
+
+        .content {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 48px 24px 60px;
+        }
+
+        .intro {
+            margin-bottom: 48px;
+        }
+        .intro h2 {
+            font-size: 2em;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+        .intro p {
+            color: #999;
+            font-size: 1.05em;
+            line-height: 1.7;
+            max-width: 720px;
+        }
+        .intro p a {
+            color: #7c8aff;
+            text-decoration: none;
+        }
+        .intro p a:hover { text-decoration: underline; }
+
+        /* 3D viewer */
+        .viewer-section {
+            margin-bottom: 48px;
+        }
+        .viewer-wrap {
+            height: 55vh;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid #1e2030;
+            position: relative;
+        }
+        model-viewer {
+            width: 100%;
+            height: 100%;
+            background-color: #12141c;
+        }
+        .hint {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #555;
+            font-size: 0.8em;
+            background: rgba(15,17,23,0.8);
+            padding: 4px 14px;
+            border-radius: 20px;
+        }
+        .viewer-caption {
+            text-align: center;
+            color: #666;
+            font-size: 0.85em;
+            margin-top: 10px;
+        }
+
+        /* Stats */
+        .stat-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+        .stat {
+            background: #161822;
+            border: 1px solid #1e2030;
+            border-radius: 10px;
+            padding: 20px 28px;
+            text-align: center;
+            flex: 1;
+            min-width: 140px;
+        }
+        .stat .num {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #7c8aff;
+        }
+        .stat .label {
+            color: #888;
+            font-size: 0.82em;
+            margin-top: 4px;
+        }
+
+        /* Section headers */
+        .section-label {
+            font-size: 0.78em;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #7c8aff;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        /* Numbered sections for the engineering screen */
+        .eng-section {
+            margin-bottom: 48px;
+        }
+        .eng-section h3 {
+            font-size: 1.35em;
+            color: #fff;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+        }
+        .eng-section h3 .num {
+            background: #7c8aff;
+            color: #0f1117;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65em;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+        .eng-section p, .eng-section li {
+            color: #bbb;
+            font-size: 0.95em;
+            line-height: 1.75;
+        }
+        .eng-section p {
+            margin-bottom: 14px;
+        }
+        .eng-section ul {
+            padding-left: 20px;
+            margin-bottom: 14px;
+        }
+        .eng-section li {
+            margin-bottom: 6px;
+        }
+        .eng-section strong {
+            color: #e0e0e0;
+        }
+
+        .callout {
+            background: #161822;
+            border-left: 3px solid #7c8aff;
+            border-radius: 0 10px 10px 0;
+            padding: 18px 22px;
+            margin: 18px 0;
+        }
+        .callout p {
+            color: #ccc;
+            margin-bottom: 0;
+        }
+
+        /* Additional projects */
+        .more-projects {
+            margin-bottom: 48px;
+        }
+        .project-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .mini-card {
+            background: #161822;
+            border: 1px solid #1e2030;
+            border-radius: 10px;
+            padding: 22px;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: border-color 0.2s;
+        }
+        .mini-card:hover {
+            border-color: #7c8aff44;
+        }
+        .mini-card h4 {
+            color: #fff;
+            font-size: 1em;
+            margin-bottom: 6px;
+        }
+        .mini-card p {
+            color: #888;
+            font-size: 0.85em;
+            line-height: 1.5;
+        }
+        .mini-card .mini-link {
+            color: #7c8aff;
+            font-size: 0.82em;
+            font-weight: 600;
+            margin-top: 8px;
+            display: inline-block;
+        }
+
+        /* Tech tags */
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .tech-tags span {
+            background: #2a2d3a;
+            color: #c0c6ff;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.82em;
+            font-weight: 500;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #444;
+            font-size: 0.85em;
+            border-top: 1px solid #1e2030;
+        }
+        footer a {
+            color: #7c8aff;
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            .project-grid { grid-template-columns: 1fr; }
+            .intro h2 { font-size: 1.5em; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">← Portfolio</a>
+        <h1>Engineering Screen — WindBorne Systems</h1>
+    </nav>
+
+    <div class="content">
+
+        <!-- Intro -->
+        <div class="intro">
+            <h2>Automotive IoT Telemetry Module</h2>
+            <p>
+                A hardware system I designed, built, and scaled to production at Autoven — an automotive-grade IoT module for electric vehicle fleet tracking, management, and diagnostics. I owned the full lifecycle: schematic capture, PCB layout in Altium, firmware development, production PCBA coordination, and at-scale deployment to 2,000+ vehicles across India. Below is an interactive 3D model of the production PCB, followed by the two engineering screen responses.
+            </p>
+        </div>
+
+        <!-- 3D Viewer -->
+        <div class="viewer-section">
+            <div class="viewer-wrap">
+                <model-viewer
+                    src="IoT.glb"
+                    alt="3D model of the Automotive IoT Telemetry PCB"
+                    auto-rotate
+                    rotation-per-second="30deg"
+                    camera-controls
+                    shadow-intensity="1">
+                </model-viewer>
+                <span class="hint">Drag to rotate · Scroll to zoom</span>
+            </div>
+            <p class="viewer-caption">Production IoT telemetry module — Altium-designed, commercially deployed</p>
+        </div>
+
+        <!-- Stats -->
+        <div class="stat-row">
+            <div class="stat">
+                <div class="num">2,000+</div>
+                <div class="label">Devices deployed nationwide</div>
+            </div>
+            <div class="stat">
+                <div class="num">74%</div>
+                <div class="label">Power reduction via wake triggers</div>
+            </div>
+            <div class="stat">
+                <div class="num">87%</div>
+                <div class="label">Telemetry packet size reduction</div>
+            </div>
+            <div class="stat">
+                <div class="num">~98%</div>
+                <div class="label">Motion detection accuracy</div>
+            </div>
+        </div>
+
+        <!-- Engineering Screen Question 1 -->
+        <div class="eng-section">
+            <p class="section-label">Engineering Screen</p>
+            <h3><span class="num">1</span> An Interesting Component: The MEMS Accelerometer</h3>
+
+            <p>
+                The component I find most interesting on this board is the <strong>MEMS accelerometer</strong> (a low-power 3-axis device in a compact LGA package). While it's a small, inexpensive part, it turned out to be the linchpin of the entire power management and telemetry strategy.
+            </p>
+
+            <div class="callout">
+                <p><strong>Operating Principle:</strong> A MEMS accelerometer works by suspending a tiny proof mass on micromachined silicon spring structures. When the device experiences acceleration, the proof mass displaces relative to fixed electrodes, changing the differential capacitance between interleaved comb-finger structures. This differential capacitance is measured by an internal charge amplifier and digitized through a sigma-delta ADC, producing a digital output proportional to acceleration along each axis. The key advantage of MEMS: the entire mechanical sensing element, signal conditioning, and digital interface are monolithically integrated into a single die.</p>
+            </div>
+
+            <p>
+                What makes this component particularly interesting in the context of this system is <strong>how its interrupt output pin fundamentally shaped the board's architecture</strong>. Rather than polling the sensor or running a periodic timer wake-up, I wired the accelerometer's programmable interrupt line directly to the MCU's external interrupt pin. The accelerometer itself runs in a nano-power "motion detection" mode (consuming only ~6 µA), continuously monitoring its own axes against a software-configurable threshold — while the main MCU is in deep sleep drawing near-zero current.
+            </p>
+
+            <p>
+                When the proof mass displacement exceeds the threshold (i.e., the vehicle starts moving), the accelerometer asserts the interrupt line, waking the MCU from deep sleep. The MCU then powers up the cellular modem, acquires a GNSS fix, and begins telemetry transmission. When motion ceases, the system returns to deep sleep. This hardware-interrupt-driven architecture is what delivered the <strong>74% reduction in power consumption</strong> — the system only draws significant current when it actually needs to transmit data.
+            </p>
+
+            <p>
+                On top of this, I engineered a <strong>time-series filtering algorithm</strong> on the raw accelerometer data to distinguish genuine vehicle movement from false triggers (vibration from nearby traffic, wind, etc.). The algorithm applies a sliding-window RMS filter with adaptive thresholding, running entirely on the MCU with minimal memory overhead. This brought field accuracy to <strong>~98%</strong>, which was critical because every false wake-up meant wasted battery and unnecessary cellular data costs across 2,000+ deployed units.
+            </p>
+
+            <p class="tech-tags">
+                <span>MEMS Accelerometer</span>
+                <span>Hardware Interrupts</span>
+                <span>Sigma-Delta ADC</span>
+                <span>Deep Sleep</span>
+                <span>Time-Series Filtering</span>
+            </p>
+        </div>
+
+        <!-- Engineering Screen Question 2 -->
+        <div class="eng-section">
+            <h3><span class="num">2</span> A Feature Designed for Ease of Use: Field-Transparent Firmware Updates (FOTA)</h3>
+
+            <p>
+                The feature I'm most proud of from a usability standpoint is the <strong>over-the-air firmware update (FOTA) system</strong> I designed for 2,000+ deployed units. With devices physically installed inside vehicles across the country, every design decision had to prioritize "no truck rolls" — technicians should never need to physically access a device to update or fix its firmware.
+            </p>
+
+            <p><strong>Design choices and rationale:</strong></p>
+
+            <ul>
+                <li><strong>Dual-bank flash with atomic rollback:</strong> The MCU's flash is partitioned into two banks — an active bank and a staging bank. New firmware is downloaded into the staging bank over cellular. Only after a full integrity check (CRC-32 validation) does the bootloader swap the active pointer. If the new firmware fails to boot or misses its first health-check heartbeat, the bootloader automatically reverts to the previous known-good image. This means a bad OTA can never brick a device in the field.</li>
+
+                <li><strong>Delta updates to minimize cellular cost:</strong> Rather than transmitting full firmware images (~256 KB) over cellular, the FOTA system transmits binary diffs. For a typical bug fix or calibration update, this reduced the OTA payload to ~10-30 KB — important when multiplied across 2,000+ devices on metered cellular plans.</li>
+
+                <li><strong>CAN-tunneled ECU updates:</strong> The IoT module also serves as a gateway: I architected the FOTA system to tunnel firmware updates through to downstream ECUs (like the BMS) over the CAN bus. This means a single cellular-connected device can update the firmware of every ECU on the vehicle — field technicians never need to connect a debugger or JTAG probe.</li>
+
+                <li><strong>Staggered rollout with fleet segmentation:</strong> Updates are pushed to configurable device groups (by region, vehicle type, or firmware version) rather than the entire fleet simultaneously. This prevents a network surge on the cellular infrastructure and provides a canary deployment mechanism — if the first batch reports issues, the rollout halts before reaching the broader fleet.</li>
+            </ul>
+
+            <p>
+                The combined effect: from the operator's perspective, firmware updates are completely transparent. They push an update from a dashboard, it propagates across the fleet with automatic rollback safety, and no one ever needs to physically touch a device. For a system with 2,000+ units installed in vehicles across the country, this was the single most important ease-of-use feature in the entire product.
+            </p>
+
+            <p class="tech-tags">
+                <span>FOTA</span>
+                <span>Dual-Bank Flash</span>
+                <span>CAN Bus Gateway</span>
+                <span>Delta Updates</span>
+                <span>CRC-32 Integrity</span>
+                <span>Fleet Management</span>
+            </p>
+        </div>
+
+        <!-- Additional hardware projects -->
+        <div class="more-projects">
+            <p class="section-label">Additional Hardware Projects</p>
+            <div class="project-grid">
+                <a class="mini-card" href="bhm.html">
+                    <h4>Battery Health Monitor — RF Sensor Nodes</h4>
+                    <p>70 custom sub-1GHz RF sensor nodes designed in Altium, fabricated, and deployed for real-time battery diagnostics. Ultra-low power bare-metal firmware with deep-sleep states for multi-month field runtime.</p>
+                    <span class="mini-link">View 3D Model →</span>
+                </a>
+                <a class="mini-card" href="bms.html">
+                    <h4>310V Battery Management System</h4>
+                    <p>High-voltage BMS for commercial EVs, migrated to a lockstep ARM Cortex-M7 achieving ISO 26262 (ASIL-D) compliance. Cell balancing, fault handling, and UDS diagnostics.</p>
+                    <span class="mini-link">View 3D Model →</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <a href="ShlokDesai_Resume.pdf">Resume (PDF)</a> · <a href="https://linkedin.com/in/shlokbdesai">LinkedIn</a> · <a href="https://github.com/DesaiShlok">GitHub</a> · <a href="mailto:sbd2150@columbia.edu">sbd2150@columbia.edu</a>
+    </footer>
+
+</body>
+</html>
